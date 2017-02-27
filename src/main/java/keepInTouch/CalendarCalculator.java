@@ -1,8 +1,18 @@
 package keepInTouch;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+
 
 public class CalendarCalculator {
+    
+    public static DateFormat dateFormat;
+    
+    static {
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    }
 
     //format: yyyymmdd
     //problem : time zone issue
@@ -32,4 +42,15 @@ public class CalendarCalculator {
     }
 
 
+    // Empty return value means `dateString` was unparseable
+    public static Optional<Date> parseDate(String dateString) {
+       
+        try { 
+            Date date = dateFormat.parse(dateString);
+            return Optional.of(date);
+        
+        } catch (ParseException pe) {
+            return Optional.empty();
+        }
+    }
 }
